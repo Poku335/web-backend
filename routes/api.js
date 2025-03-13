@@ -24,18 +24,18 @@ router.get('/product', async (req, res) => {
   }
 });
 
-// เพิ่ม endpoint สำหรับการค้นหา
+
 router.get('/product/search', async (req, res) => {
   try {
-    const searchQuery = req.query.q; // รับค่า q จาก query parameter
+    const searchQuery = req.query.q; 
     if (!searchQuery) {
       return res.status(400).json({ error: 'Search query is required' });
     }
 
-    // ค้นหาสินค้าที่ product_name มีคำที่ตรงกับ searchQuery
+    
     const [rows] = await db.promise().query(
       'SELECT * FROM product WHERE product_name LIKE ?',
-      [`%${searchQuery}%`] // ใช้ % เพื่อค้นหาคำที่มีส่วนตรงกับ searchQuery
+      [`%${searchQuery}%`]
     );
     res.json(rows || []);
   } catch (error) {
